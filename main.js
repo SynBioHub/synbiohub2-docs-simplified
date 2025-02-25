@@ -33,6 +33,8 @@ async function loadSidebar() {
         const response = await fetch('sidebar.json');
         const data = await response.json();
         const sidebarContent = document.querySelector('.sidebar-content');
+        const sidebar = document.getElementById('sidebar');
+        const container = document.querySelector('.container');
         
         data.sections.forEach(section => {
             const sectionTitle = document.createElement('h2');
@@ -47,16 +49,27 @@ async function loadSidebar() {
                 link.onclick = (e) => {
                     e.preventDefault();
                     loadContent(item.path);
+                    // Collapse sidebar if in mobile view
+                    if (window.innerWidth <= 768) {
+                        sidebar.classList.add('collapsed');
+                        container.classList.add('sidebar-collapsed');
+                        document.body.style.overflow = '';
+                    }
                 };
                 sidebarContent.appendChild(link);
             });
         });
 
-        // Setup home link
+        // Setup home link with the same mobile collapse behavior
         const homeLink = document.getElementById('home-link');
         homeLink.onclick = (e) => {
             e.preventDefault();
             loadContent('articles/home.md');
+            if (window.innerWidth <= 768) {
+                sidebar.classList.add('collapsed');
+                container.classList.add('sidebar-collapsed');
+                document.body.style.overflow = '';
+            }
         };
     } catch (error) {
         console.error('Error loading sidebar:', error);
