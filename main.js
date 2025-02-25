@@ -224,6 +224,37 @@ function initializeSidebarToggle() {
     });
 }
 
+// Cache all articles
+async function cacheAllArticles() {
+    try {
+        const response = await fetch('sidebar.json');
+        const data = await response.json();
+        const articles = ['articles/home.md'];
+        
+        // Collect all article paths
+        data.sections.forEach(section => {
+            section.items.forEach(item => {
+                articles.push(item.path);
+            });
+        });
+
+        // Fetch all articles to cache them
+        const fetchPromises = articles.map(async (path) => {
+            try {
+                await fetch(encodeURI(path));
+                console.log(`Cached: ${path}`);
+            } catch (error) {
+                console.warn(`Failed to cache: ${path}`);
+            }
+        });
+
+        await Promise.all(fetchPromises);
+        console.log('All articles cached');
+    } catch (error) {
+        console.error('Error caching articles:', error);
+    }
+}
+
 // Initialize the page
 window.addEventListener('DOMContentLoaded', () => {
     loadSidebar().then(() => {
@@ -237,4 +268,7 @@ window.addEventListener('DOMContentLoaded', () => {
     
     // Initial route handling
     handleRoute();
+
+    // Cache all articles after 5 seconds
+    setTimeout(cacheAllArticles, 5000);
 });
