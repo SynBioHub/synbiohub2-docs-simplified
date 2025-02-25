@@ -2,6 +2,25 @@ const fs = require('fs').promises;
 const path = require('path');
 const matter = require('gray-matter');
 
+// Helper function to convert string to title case while preserving existing uppercase
+function toTitleCase(str) {
+    return str.split(/[\s-]/).map(word => {
+        // If word is already uppercase, preserve it
+        if (word === word.toUpperCase()) {
+            return word;
+        }
+        // Special cases
+        if (word.toLowerCase() === 'api') {
+            return 'API';
+        }
+        // For normal words, capitalize first letter only if not already uppercase
+        const firstChar = word.charAt(0);
+        const rest = word.slice(1);
+        return (firstChar === firstChar.toUpperCase() ? firstChar : firstChar.toUpperCase()) 
+            + (rest === rest.toUpperCase() ? rest : rest.toLowerCase());
+    }).join(' ');
+}
+
 async function scanDirectory(dir) {
     const entries = await fs.readdir(dir, { withFileTypes: true });
     const files = [];
@@ -32,25 +51,22 @@ async function getFileMetadata(filePath) {
     const folderName = path.basename(path.dirname(filePath));
     const [orderNum, ...categoryParts] = folderName.split('_');
     
-    // Create category name without the number
-    const category = categoryParts.join('_')
+    // Create category name without the number and properly title case it
+    const category = categoryParts.join(' ')
         .split('-')
-        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+        .map(toTitleCase)
         .join(' ');
 
     // Get ordering number (default to 999 if not a number)
     const order = parseInt(orderNum) || 999;
 
-    // Get title from filename
-    const title = path.basename(filePath, '.md')
-        .split('-')
-        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-        .join(' ');
+    // Get title from filename and properly title case it
+    const title = toTitleCase(path.basename(filePath, '.md'));
 
     return {
         title,
         path: path.relative(process.cwd(), filePath),
-        category,
+        category: toTitleCase(category),
         order,
         weight: typeof data.weight === 'number' ? data.weight : 999
     };

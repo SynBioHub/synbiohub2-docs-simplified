@@ -4,8 +4,8 @@
       "title": "Guides",
       "items": [
         {
-          "title": "Workshop tutorial",
-          "path": "articles/1_guides/workshop tutorial.md",
+          "title": "Tutorial From Workshop",
+          "path": "articles/1_guides/tutorial from workshop.md",
           "weight": 0
         },
         {
@@ -21,10 +21,10 @@
       ]
     },
     {
-      "title": "Micro guides",
+      "title": "Micro Guides",
       "items": [
         {
-          "title": "What are micro guides",
+          "title": "What Are Micro Guides",
           "path": "articles/2_micro guides/what are micro guides.md",
           "weight": 0
         },
@@ -34,17 +34,17 @@
           "weight": 10
         },
         {
-          "title": "Viewing and Downloading Information",
+          "title": "Viewing And Downloading Information",
           "path": "articles/2_micro guides/Viewing and Downloading Information.md",
           "weight": 20
         },
         {
-          "title": "Registering or Updating Account",
+          "title": "Registering Or Updating Account",
           "path": "articles/2_micro guides/Registering or Updating Account.md",
           "weight": 30
         },
         {
-          "title": "Submitting, Managing and Updating Submissions",
+          "title": "Submitting, Managing And Updating Submissions",
           "path": "articles/2_micro guides/Submitting, Managing and Updating Submissions.md",
           "weight": 40
         },
@@ -64,8 +64,8 @@
       "title": "Advanced",
       "items": [
         {
-          "title": "Api Documentation",
-          "path": "articles/3_advanced/api-documentation.md",
+          "title": "API Documentation",
+          "path": "articles/3_advanced/API documentation.md",
           "weight": 1
         },
         {
@@ -76,15 +76,15 @@
       ]
     },
     {
-      "title": "Get involved",
+      "title": "Get Involved",
       "items": [
         {
-          "title": "Report an issue",
+          "title": "Report An Issue",
           "path": "articles/4_get involved/report an issue.md",
           "weight": 5
         },
         {
-          "title": "Mailing lists",
+          "title": "Mailing Lists",
           "path": "articles/4_get involved/mailing lists.md",
           "weight": 10
         }
@@ -94,7 +94,7 @@
       "title": "Background",
       "items": [
         {
-          "title": "About SynBioHub",
+          "title": "About Synbiohub",
           "path": "articles/5_background/about SynBioHub.md",
           "weight": 1
         },
