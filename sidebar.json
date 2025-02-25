@@ -4,8 +4,8 @@
       "title": "Guides",
       "items": [
         {
-          "title": "Workshop video",
-          "path": "articles/1_guides/workshop video.md",
+          "title": "Workshop tutorial",
+          "path": "articles/1_guides/workshop tutorial.md",
           "weight": 0
         },
         {
