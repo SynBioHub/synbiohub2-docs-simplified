@@ -9,13 +9,13 @@
           "weight": 0
         },
         {
-          "title": "Setup",
-          "path": "articles/1_guides/setup.md",
+          "title": "Installation",
+          "path": "articles/1_guides/installation.md",
           "weight": 10
         },
         {
-          "title": "Installation",
-          "path": "articles/1_guides/installation.md",
+          "title": "Setup",
+          "path": "articles/1_guides/setup.md",
           "weight": 20
         }
       ]
