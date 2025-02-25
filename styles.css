@@ -254,7 +254,14 @@ body {
 /* Media Queries */
 @media (max-width: 768px) {
     .sidebar-toggle {
-        display: block;
+        min-width: 40px; /* Ensure minimum clickable area */
+        min-height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.5rem;
+        position: fixed;
+        top: 0.5rem; /* Move slightly closer to top edge */
     }
     
     .sidebar {
@@ -277,9 +284,17 @@ body {
     }
 
     .content {
-        margin-left: 0;
+        min-width: 280px; /* Ensure minimum readable width */
         width: 100vw;
         max-width: none;
+        margin-left: 0;
+        word-wrap: break-word; /* Handle long words */
+        overflow-wrap: break-word;
+        padding: 5.5rem 2rem 2rem 2rem; /* Change to padding shorthand to ensure all sides */
+    }
+
+    .content-wrapper {
+        padding-top: 0;
     }
 
     .sidebar-collapsed .content {
@@ -293,6 +308,12 @@ body {
 
 @media (max-width: 480px) {
     .content {
-        padding: 1rem;
+        padding: 5.5rem 1rem 1rem 1rem; /* Keep top padding while reducing sides */
+    }
+}
+
+@media (max-width: 320px) {
+    .content {
+        padding: 5.5rem 0.5rem 0.5rem 0.5rem; /* Even smaller side padding but maintain top */
     }
 }
