@@ -1,5 +1,4 @@
 ---
-title: "API Documentation"
 category: "Guide"
 weight: 1
 ---
