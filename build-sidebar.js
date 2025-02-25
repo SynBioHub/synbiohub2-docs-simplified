@@ -56,6 +56,36 @@ async function getFileMetadata(filePath) {
     };
 }
 
+async function generateSitemap(markdownFiles) {
+    const baseUrl = 'https://synb-pages.peterhindes.com/';
+    // Use current date in YYYY-MM-DD format
+    const currentDate = new Date().toLocaleDateString('en-CA'); // Gets date in YYYY-MM-DD format
+    
+    const xmlItems = markdownFiles.map(file => {
+        const relPath = path.relative(process.cwd(), file)
+            .replace(/\.md$/, '')
+            .replace(/\\/g, '/')
+            .split('/')
+            .map(segment => encodeURIComponent(segment))
+            .join('/');
+        
+        const urlPath = `${baseUrl}#${relPath}`;
+        
+        return `  <url>
+    <loc>${urlPath}</loc>
+    <lastmod>${currentDate}</lastmod>
+    <changefreq>weekly</changefreq>
+  </url>`;
+    });
+
+    const xmlContent = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${xmlItems.join('\n')}
+</urlset>`;
+
+    await fs.writeFile('sitemap.xml', xmlContent, 'utf8');
+}
+
 async function buildSidebar() {
     try {
         const articlesDir = path.join(process.cwd(), 'articles');
@@ -96,7 +126,10 @@ async function buildSidebar() {
             'utf8'
         );
 
-        console.log('Successfully generated sidebar.json');
+        // Generate XML sitemap
+        await generateSitemap(markdownFiles);
+
+        console.log('Successfully generated sidebar.json and sitemap.xml');
     } catch (error) {
         console.error('Error building sidebar:', error);
         process.exit(1);

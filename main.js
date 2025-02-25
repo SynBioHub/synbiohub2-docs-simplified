@@ -44,10 +44,13 @@ async function loadSidebar() {
             
             section.items.sort((a, b) => a.weight - b.weight).forEach(item => {
                 const link = document.createElement('a');
-                link.href = '#' + item.path;
+                const historyPath = item.path.replace(/\.md$/, '');
+                link.href = '#' + historyPath;
                 link.textContent = item.title;
                 link.onclick = (e) => {
                     e.preventDefault();
+                    // Update the hash without triggering the hashchange event
+                    history.pushState(null, '', '#' + historyPath);
                     loadContent(item.path);
                     // Collapse sidebar if in mobile view
                     if (window.innerWidth <= 768) {
@@ -60,10 +63,11 @@ async function loadSidebar() {
             });
         });
 
-        // Setup home link with the same mobile collapse behavior
+        // Setup home link with the same behavior
         const homeLink = document.getElementById('home-link');
         homeLink.onclick = (e) => {
             e.preventDefault();
+            history.pushState(null, '', '#articles/home');
             loadContent('articles/home.md');
             if (window.innerWidth <= 768) {
                 sidebar.classList.add('collapsed');
@@ -79,7 +83,11 @@ async function loadSidebar() {
 // Load and render markdown content
 async function loadContent(path) {
     try {
-        const response = await fetch(encodeURI(path));
+        // Always append .md if it's not present in the hash or the path
+        const filePath = path.endsWith('.md') ? path : 
+            path.replace(/\/?$/, '.md'); // Add .md to the end, handling optional trailing slash
+        
+        const response = await fetch(encodeURI(filePath));
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -88,8 +96,8 @@ async function loadContent(path) {
         // Remove frontmatter before rendering
         const cleanedMarkdown = markdown.replace(/^---[\s\S]+?---\n/, '');
         
-        // Extract title from filename
-        const filename = path.split('/').pop().replace('.md', '');
+        // Extract title from filename, removing .md if present
+        const filename = path.split('/').pop().replace(/\.md$/, '');
         const title = filename
             .split('-')
             .map(word => word.charAt(0).toUpperCase() + word.slice(1))

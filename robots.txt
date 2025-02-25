@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://synb-pages.peterhindes.com/sitemap.xml
