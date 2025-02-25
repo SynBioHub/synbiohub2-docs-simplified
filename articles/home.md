@@ -21,6 +21,6 @@ You can view the categories, in which the documentation has been divided, in the
 
 * For specific instructions on how to search for a particular record, navigate to the [Searching for Information](#articles/2_micro%20guides/Searching%20For%20Info) section.
 
-* For specific instructions on how to update an existing collection, visit the [Updating a submission](#articles/2_micro%20guides/Submitting,%20Managing%20and%20Updating%20Submissions) section.
+* For specific instructions on how to update an existing collection, visit the [Updating a submission](#articles/2_micro%20guides/Submitting%2C%20Managing%20and%20Updating%20Submissions) section.
 
 * For specific instructions on how to get your own SynBioHub's local instance, visit the [Installation](#articles/1_guides/installation) section and setting it up, you can get specific instructions in the [Setup](#articles/1_guides/setup) section.
