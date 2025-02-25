@@ -6,6 +6,7 @@
     <title>Documentation</title>
     <link rel="stylesheet" href="styles.css">
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <meta name="description" content="SynBioHub Documentation - Instructions for using the platform for sharing and publishing synthetic biology designs.">
 </head>
 <body>
     <div class="container">
@@ -20,27 +21,17 @@
                 <img src="brand.svg" alt="SynBioHub Logo" class="brand-logo">
                 <a href="#" class="home-link" id="home-link">Home</a>
             </div>
-            <div class="sidebar-content">
+            <nav class="sidebar-content" aria-label="Documentation navigation">
                 <!-- Sidebar content will be loaded here -->
-            </div>
+            </nav>
         </div>
         <div class="resize-handle" id="resize-handle"></div>
         <div class="content" id="content">
-            <!-- Markdown content will be rendered here -->
+            <div class="content-wrapper">
+                <!-- Markdown content will be rendered here -->
+            </div>
         </div>
     </div>
-    <script>
-        // Load theme before other scripts
-        fetch('theme.json')
-            .then(response => response.json())
-            .then(theme => {
-                window.docTheme = theme;
-                document.documentElement.style.setProperty('--sidebar-bg', theme.sidebar.background);
-                document.documentElement.style.setProperty('--link-bg', theme.sidebar.linkBackground);
-                document.documentElement.style.setProperty('--link-hover-bg', theme.sidebar.linkBackgroundHover);
-                document.documentElement.style.setProperty('--link-text', theme.sidebar.linkText);
-            });
-    </script>
     <script src="main.js"></script>
 </body>
 </html>

@@ -5,6 +5,28 @@ marked.setOptions({
     }
 });
 
+// Handle hash-based routing
+function handleRoute() {
+    const hash = window.location.hash.slice(1);
+    if (hash) {
+        loadContent(decodeURIComponent(hash)).then(() => {
+            // Ensure complete scroll to top accounting for fixed header and padding
+            window.scrollTo({
+                top: 0,
+                behavior: 'instant'
+            });
+            const content = document.getElementById('content');
+            if (content) {
+                content.scrollTop = 0;
+                // Ensure parent containers are also scrolled
+                content.parentElement?.scrollTo(0, 0);
+            }
+        });
+    } else {
+        loadContent('articles/home.md');
+    }
+}
+
 // Load and render sidebar
 async function loadSidebar() {
     try {
@@ -13,7 +35,7 @@ async function loadSidebar() {
         const sidebarContent = document.querySelector('.sidebar-content');
         
         data.sections.forEach(section => {
-            const sectionTitle = document.createElement('h3');
+            const sectionTitle = document.createElement('h2');
             sectionTitle.textContent = section.title;
             sectionTitle.style.marginTop = '1rem';
             sidebarContent.appendChild(sectionTitle);
@@ -44,7 +66,6 @@ async function loadSidebar() {
 // Load and render markdown content
 async function loadContent(path) {
     try {
-        // Ensure the path is properly encoded for fetch
         const response = await fetch(encodeURI(path));
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
@@ -61,12 +82,34 @@ async function loadContent(path) {
             .map(word => word.charAt(0).toUpperCase() + word.slice(1))
             .join(' ');
 
-        const contentElement = document.getElementById('content');
-        contentElement.innerHTML = `<h1>${title}</h1>${marked.parse(cleanedMarkdown)}`;
+        const contentWrapper = document.querySelector('.content-wrapper');
+        if (contentWrapper) {
+            contentWrapper.innerHTML = `<h1>${title}</h1>${marked.parse(cleanedMarkdown)}`;
+        }
     } catch (error) {
         console.error('Error loading content:', error);
-        const contentElement = document.getElementById('content');
-        contentElement.innerHTML = `<h1>Error</h1><p>Could not load content: ${error.message}</p>`;
+        const contentWrapper = document.querySelector('.content-wrapper');
+        if (contentWrapper) {
+            contentWrapper.innerHTML = `<h1>Error</h1><p>Could not load content: ${error.message}</p>`;
+        }
+    }
+}
+
+// Load and apply theme colors
+async function loadThemeColors() {
+    try {
+        const response = await fetch('theme.json');
+        const theme = await response.json();
+        
+        // Only set properties that exist in theme.json
+        if (theme.sidebar) {
+            document.documentElement.style.setProperty('--sidebar-bg', theme.sidebar.background);
+            document.documentElement.style.setProperty('--link-bg', theme.sidebar.linkBackground);
+            document.documentElement.style.setProperty('--link-hover-bg', theme.sidebar.linkBackgroundHover);
+            document.documentElement.style.setProperty('--link-text', theme.sidebar.linkText);
+        }
+    } catch (error) {
+        console.error('Error loading theme:', error);
     }
 }
 
@@ -127,13 +170,36 @@ function initializeSidebarToggle() {
     const sidebar = document.getElementById('sidebar');
     const toggleButton = document.getElementById('sidebar-toggle');
     const container = document.querySelector('.container');
+    let wasMobile = window.innerWidth <= 768;
 
     toggleButton.addEventListener('click', () => {
         sidebar.classList.toggle('collapsed');
         container.classList.toggle('sidebar-collapsed');
         
-        // Update handle position after animation
-        setTimeout(updateHandlePosition, 300);
+        // For mobile: prevent body scroll when sidebar is open
+        if (window.innerWidth <= 768) {
+            document.body.style.overflow = sidebar.classList.contains('collapsed') ? '' : 'hidden';
+        }
+    });
+
+    // Reset body overflow and sidebar width on window resize
+    window.addEventListener('resize', () => {
+        const isMobile = window.innerWidth <= 768;
+        
+        // Reset sidebar width when switching from mobile to desktop
+        if (wasMobile && !isMobile) {
+            sidebar.style.width = '250px';  // Reset to default width
+            document.documentElement.style.setProperty('--sidebar-width', '250px');
+            const handle = document.getElementById('resize-handle');
+            if (handle) {
+                handle.style.left = '250px';
+            }
+        }
+        
+        wasMobile = isMobile;
+        if (!isMobile) {
+            document.body.style.overflow = '';
+        }
     });
 }
 
@@ -144,5 +210,10 @@ window.addEventListener('DOMContentLoaded', () => {
         loadThemeColors();
         initializeSidebarToggle();
     });
-    loadContent('articles/home.md');
+    
+    // Add hash change listener
+    window.addEventListener('hashchange', handleRoute);
+    
+    // Initial route handling
+    handleRoute();
 });

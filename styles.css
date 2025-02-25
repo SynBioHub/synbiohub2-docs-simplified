@@ -71,9 +71,17 @@ body {
 }
 
 .sidebar h1 {
-    margin: 0 0 -20px;
+    margin: 0 0 0.5rem;
     padding: 0 0.75rem;
-    font-size: x-large;
+    font-size: 1.75rem;
+}
+
+.sidebar h2 {
+    margin: 2rem 0 0.75rem;
+    padding: 0 0.75rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-color);
 }
 
 .sidebar h3 {
@@ -86,7 +94,7 @@ body {
     position: fixed;
     top: 1rem;
     left: 1rem;
-    z-index: 10;
+    z-index: 1001; /* Ensure it's above the sidebar */
     background: var(--bg-color);
     border: 1px solid #e5e7eb;
     border-radius: 4px;
@@ -148,6 +156,14 @@ body {
     width: 100%;
     margin-left: var(--sidebar-width);
     transition: none;
+    overflow-y: auto;
+    height: 100vh;
+    scroll-padding-top: 2rem;
+}
+
+.content-wrapper {
+    padding-top: 1rem;
+    position: relative;
 }
 
 .sidebar-collapsed .content {
@@ -239,5 +255,44 @@ body {
 @media (max-width: 768px) {
     .sidebar-toggle {
         display: block;
+    }
+    
+    .sidebar {
+        width: 100vw;
+        max-width: none;
+        min-width: 100%;
+        z-index: 1000;
+        background: var(--sidebar-bg);
+    }
+
+    /* Add overlay behind sidebar */
+    .sidebar:not(.collapsed)::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: -1;
+    }
+
+    .content {
+        margin-left: 0;
+        width: 100vw;
+        max-width: none;
+    }
+
+    .sidebar-collapsed .content {
+        margin-left: 0;
+    }
+
+    .resize-handle {
+        display: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .content {
+        padding: 1rem;
     }
 }
