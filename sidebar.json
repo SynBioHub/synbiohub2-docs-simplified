@@ -1,0 +1,22 @@
+{
+  "sections": [
+    {
+      "title": "Guide",
+      "items": [
+        {
+          "title": "Getting Started",
+          "path": "articles/1_guide/getting-started.md"
+        }
+      ]
+    },
+    {
+      "title": "Background",
+      "items": [
+        {
+          "title": "AboutSynBioHub",
+          "path": "articles/2_background/AboutSynBioHub.md"
+        }
+      ]
+    }
+  ]
+}
