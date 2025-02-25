@@ -1,0 +1,43 @@
+name: Build Sidebar
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'articles/**'
+      - 'build-sidebar.js'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run build-sidebar.js
+        run: node build-sidebar.js
+
+      - name: Check for changes
+        id: git-check
+        run: |
+          git diff --quiet sidebar.json sitemap.xml || echo "changes=true" >> $GITHUB_OUTPUT
+
+      - name: Commit changes
+        if: steps.git-check.outputs.changes == 'true'
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add sidebar.json sitemap.xml
+          git commit -m "Auto-update sidebar.json and sitemap.xml"
+          git push
