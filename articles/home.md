@@ -15,12 +15,12 @@ You can view the categories, in which the documentation has been divided, in the
 
 * You can also view your [profile](https://synbiohub.org/profile), if in case you're already logged in.
 
-* If you have any issues while registering and creating your user account you can visit [Registering and Updating](#articles/2_micro guides/Registering or Updating Account.md) section for specific instructions.
+* If you have any issues while registering and creating your user account you can visit [Registering and Updating](#articles/2_micro%20guides/Registering%20or%20Updating%20Account) section for specific instructions.
 
-* For specific instructions on how to view a particular record, you can visit the [Viewing a Record](#articles/2_micro guides/Viewing and Downloading Information.md) section.
+* For specific instructions on how to view a particular record, you can visit the [Viewing a Record](#articles/2_micro%20guides/Viewing%20and%20Downloading%20Information) section.
 
-* For specific instructions on how to search for a particular record, navigate to the [Searching for Information](#articles/2_micro guides/Searching For Info.md) section.
+* For specific instructions on how to search for a particular record, navigate to the [Searching for Information](#articles/2_micro%20guides/Searching%20For%20Info) section.
 
-* For specific instructions on how to update an existing collection, visit the [Updating a submission](#articles/2_micro guides/Submitting, Managing and Updating Submissions.md) section.
+* For specific instructions on how to update an existing collection, visit the [Updating a submission](#articles/2_micro%20guides/Submitting,%20Managing%20and%20Updating%20Submissions) section.
 
-* For specific instructions on how to get your own SynBioHub's local instance, visit the [Installation](#articles/1_guides/installation.md) section and setting it up, you can get specific instructions in the [Setup](#articles/1_guides/setup.md) section.
+* For specific instructions on how to get your own SynBioHub's local instance, visit the [Installation](#articles/1_guides/installation) section and setting it up, you can get specific instructions in the [Setup](#articles/1_guides/setup) section.
