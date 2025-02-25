@@ -6,11 +6,21 @@ Welcome to the documentation for SynBioHub2! This guide will help you understand
 - A developer integrating with our APIs
 - An organization wanting to host your own instance
 
-## Quick Links
+The documentation has been divided into various categories for your convenience.
+You can view the categories, in which the documentation has been divided, in the menu located on the left.
 
-- [Getting Started](articles/1_guide/getting-started.md)
-- [About SynBioHub2](articles/2_background/AboutSynBioHub.md)
+## Quick Start
 
-## Need Help?
+* On **[Synbiohub's](https://synbiohub.org/)** home page, you can see various options with regards to signing up, searching, uploading as well as sharing your submissions.
 
-If you need help or want to report an issue, please visit our [GitHub repository](https://github.com/SynBioHub/synbiohub2).
+* You can also view your [profile](https://synbiohub.org/profile), if in case you're already logged in.
+
+* If you have any issues while registering and creating your user account you can visit [Registering and Updating](2_micro guides/Registering or Updating Account) section for specific instructions.
+
+* For specific instructions on how to view a particular record, you can visit the [Viewing a Record](2_micro guides/Viewing and Downloading Information) section.
+
+* For specific instructions on how to search for a particular record, navigate to the [Searching for Information](2_micro guides/Searching For Info) section.
+
+* For specific instructions on how to update an existing collection, visit the [Updating a submission](2_micro guides/Submitting, Managing and Updating Submissions) section.
+
+* For specific instructions on how to get your own SynBioHub's local instance, visit the [Installation](1_guides/installation) section and setting it up, you can get specific instructions in the [Setup](1_guides/setup) section.

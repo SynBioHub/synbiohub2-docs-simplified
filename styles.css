@@ -5,6 +5,9 @@
     --bg-color: #ffffff;
     --text-color: #1f2937;
     --sidebar-bg: #f3f4f6;
+    --link-bg: #ffffff;
+    --link-hover-bg: #e0e7ff;
+    --link-text: #1673ff;
 }
 
 /* Reset and Base Styles */
@@ -30,7 +33,7 @@ body {
 /* Sidebar Styles */
 .sidebar {
     width: var(--sidebar-width);
-    min-width: 250px;
+    min-width: 220px;
     background: var(--sidebar-bg);
     position: fixed;
     height: 100vh;
@@ -48,7 +51,6 @@ body {
 
 .sidebar a {
     display: block;
-    color: var(--text-color);
     text-decoration: none;
     background: var(--link-bg);
     padding: 0.5rem 0.75rem;
@@ -65,7 +67,6 @@ body {
 
 .sidebar-content {
     margin-top: 1rem;
-    background-color: cornsilk;
     height: auto;
 }
 
@@ -161,7 +162,6 @@ body {
 .header-container {
     margin-bottom: 1.5rem;
     padding-bottom: 1rem;
-    border-bottom: 1px solid #e5e7eb;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -194,7 +194,6 @@ body {
 .content h1 {
     font-size: 2.5rem;
     margin-bottom: 1.5rem;
-    color: var(--text-color);
 }
 
 .content h2 {

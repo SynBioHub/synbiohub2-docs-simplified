@@ -52,7 +52,7 @@ async function getFileMetadata(filePath) {
         path: path.relative(process.cwd(), filePath),
         category,
         order,
-        weight: data.weight || 999
+        weight: typeof data.weight === 'number' ? data.weight : 999
     };
 }
 
@@ -85,7 +85,7 @@ async function buildSidebar() {
                     title: category,
                     items: items
                         .sort((a, b) => a.weight - b.weight)
-                        .map(({ title, path }) => ({ title, path }))
+                        .map(({ title, path, weight }) => ({ title, path, weight }))
                 }))
         };
 

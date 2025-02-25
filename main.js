@@ -18,7 +18,7 @@ async function loadSidebar() {
             sectionTitle.style.marginTop = '1rem';
             sidebarContent.appendChild(sectionTitle);
             
-            section.items.forEach(item => {
+            section.items.sort((a, b) => a.weight - b.weight).forEach(item => {
                 const link = document.createElement('a');
                 link.href = '#' + item.path;
                 link.textContent = item.title;
@@ -44,15 +44,29 @@ async function loadSidebar() {
 // Load and render markdown content
 async function loadContent(path) {
     try {
-        const response = await fetch(path);
+        // Ensure the path is properly encoded for fetch
+        const response = await fetch(encodeURI(path));
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
         const markdown = await response.text();
         
         // Remove frontmatter before rendering
         const cleanedMarkdown = markdown.replace(/^---[\s\S]+?---\n/, '');
+        
+        // Extract title from filename
+        const filename = path.split('/').pop().replace('.md', '');
+        const title = filename
+            .split('-')
+            .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+            .join(' ');
+
         const contentElement = document.getElementById('content');
-        contentElement.innerHTML = marked.parse(cleanedMarkdown);
+        contentElement.innerHTML = `<h1>${title}</h1>${marked.parse(cleanedMarkdown)}`;
     } catch (error) {
         console.error('Error loading content:', error);
+        const contentElement = document.getElementById('content');
+        contentElement.innerHTML = `<h1>Error</h1><p>Could not load content: ${error.message}</p>`;
     }
 }
 
@@ -127,8 +141,8 @@ function initializeSidebarToggle() {
 window.addEventListener('DOMContentLoaded', () => {
     loadSidebar().then(() => {
         initializeResize();
+        loadThemeColors();
         initializeSidebarToggle();
     });
-    // Load home page by default
     loadContent('articles/home.md');
 });
